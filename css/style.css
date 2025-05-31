@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Fredoka', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #F2EFE7 40%, #9ACBD0 60%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  animation: backgroundShift 15s ease-in-out infinite alternate;
+  overflow-x: hidden;
+}
+
+@keyframes backgroundShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+header {
+  width: 100%;
+  background: linear-gradient(90deg, #2973B2, #48A6A7);
+  padding: 20px 40px;
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 80%;
+  max-width: 1200px;
+  margin: 40px 0;
+  background: rgba(255 255 255 / 0.85);
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(41,115,178,0.25);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.main-section:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 45px rgba(41,115,178,0.35);
+}
+
+.left-side, .right-side {
+  flex: 1;
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-side {
+  flex: 1.4;
+  padding: 75px 65px;
+  background: #2973B2;
+  border-radius: 0 25px 25px 0;
+  box-shadow: inset 5px 0 15px rgba(0,0,0,0.1);
+  color: white;
+}
+
+.left-side {
+  flex: 0.8;
+  padding: 40px 30px;
+  text-align: center;
+  color: #2973B2;
+}
+
+.left-side h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+  animation: fadeInMoveDown 1s ease forwards;
+  opacity: 0;
+}
+
+.left-side p {
+  font-size: 20px;
+  color: #444;
+  margin-bottom: 35px;
+  animation: fadeInMoveDown 1s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.form-box#login-box, .form-box#register-box {
+  background: white;
+  border-radius: 20px;
+  padding: 45px 35px;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  color: #2973B2;
+  animation: fadeInMoveUp 1s ease 0.8s forwards;
+  opacity: 0;
+}
+
+.form-box#register-box {
+  padding: 50px 40px;
+  max-width: 500px;
+}
+
+.form-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  user-select: none;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1.8px solid #ccc;
+  font-size: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #2973B2;
+  box-shadow: 0 0 8px #2973B2AA;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(45deg, #2973B2, #48A6A7);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.4s ease, transform 0.2s ease;
+  box-shadow: 0 6px 18px rgba(41,115,178,0.5);
+  user-select: none;
+}
+
+button:hover {
+  background: linear-gradient(45deg, #20598a, #3a8a8c);
+  transform: scale(1.05);
+}
+
+.register-link {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  color: #2973B2;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.8px;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.register-link:hover {
+  color: #48A6A7;
+  text-decoration: underline;
+}
+
+@keyframes fadeInMoveDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInMoveUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+#login-box, #register-box {
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+@media (max-width: 400px) {
+  .main-section {
+    flex-direction: column;
+    border-radius: 15px;
+  }
+
+  .right-side {
+    border-radius: 0 0 15px 15px;
+    box-shadow: none;
+    background: #2973B2;
+    padding: 35px 15px;
+  }
+
+  .left-side {
+    padding: 25px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    font-size: 20px;
+    padding: 16px 20px;
+  }
+
+  header img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .left-side h1 {
+    font-size: 32px;
+  }
+
+  .left-side p {
+    font-size: 16px;
+  }
+
+  .form-box#login-box {
+    padding: 30px 25px;
+    max-width: 100%;
+  }
+
+  .form-box#register-box {
+    padding: 20px 20px;
+    max-width: 100%;
+  }
+
+  input, select, button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+#user-selection h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2973B2;
+}
+
+.user-type {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.user-type .option {
+  flex: 1 1 calc(50% - 40px); /* dos columnas */
+  max-width: calc(50% - 40px);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .user-type .option {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+.user-type img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 2px solid #2973B2;
+  padding: 5px;
+  background: #2973B2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.user-type button {
+  background: #2973B2;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.user-type button:hover {
+  background: #1e598c;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+  color: #0a1432;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: #D0E7F2;
+}
+
+.img-fondo {
+  background-color: #D6EAF8;
+  padding: 15px;
+  border-radius: 12px;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

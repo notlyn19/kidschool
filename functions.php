@@ -1,5 +1,6 @@
 <?php
 // Función para limpiar datos de entrada
+//hola
 function cleanInput($data) {
     $data = trim($data);
     $data = stripslashes($data);

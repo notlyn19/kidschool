@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'conexion.php'; // Asegúrate que aquí tienes conexión mysqli activa en $conn
+include_once '/model/conexion.php'; // Asegúrate que aquí tienes conexión mysqli activa en $conn
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Validar campos

@@ -1,9 +1,11 @@
 <?php
 session_start();
-include_once '/model/conexion.php'; // Asegúrate que aquí tienes conexión mysqli activa en $conn
+include_once 'conexion.php';
+$objeto_conexion = new Conexion();
+$conn = $objeto_conexion->conectar();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Validar campos
+
     if (empty($_POST["correo"]) || empty($_POST["contraseña"])) {
         $_SESSION['mensaje_error'] = "⚠️ Por favor complete todos los campos.";
         header("Location: index.php");

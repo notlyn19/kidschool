@@ -1,6 +1,8 @@
 <?php
 session_start();
-include 'conexion.php';
+include_once '../conexion.php';
+$objeto_conexion = new Conexion();
+$conn = $objeto_conexion->conectar();
 
 if (!isset($_SESSION["usuario_id"]) || $_SESSION["id_tipo_usuario"] != 2) {
     header("Location: panel_estudiante.html");

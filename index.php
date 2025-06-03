@@ -52,9 +52,10 @@
         <!-- Login Docente -->
         <div class="form-box" id="login-docente" style="display: none;">
           <h2>Login Docente</h2>
-          <input type="email" name="correo" placeholder="Correo electrónico" required />
-          <input type="password" name="contrasena" placeholder="Contraseña" required />
-          <button type="submit">Ingresar</button>
+          <form action="controller/login.php" method="POST">
+            <input type="email" name="correo" placeholder="Correo electrónico" required />
+            <input type="password" name="contraseña" placeholder="Contraseña" required />
+            <button type="submit">Ingresar</button>
           </form>
           <a class="register-link go-to-register">¿No tienes cuenta? Regístrate aquí</a>
           <span class="back-link" onclick="volver()">Volver</span>
@@ -76,7 +77,6 @@
         <div class="form-box" id="register-box" style="display:none;">
           <h2>Registro</h2>
           <form action="controller/registro.php" method="POST">
-            <input type="hidden" name="id_usuario" value="0">
             <input type="hidden" name="estado" value="1">
             <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" maxlength="100" required />
 
@@ -96,8 +96,21 @@
             </select>
 
             <select name="id_tipo_usuario" required>
-              
+
+
+              <option value="" disabled selected>Tipo de usuario</option>
+
+
+              <option value="1">Docente</option>
+
+
+              <option value="2">Estudiante</option>
+
+
+
             </select>
+
+
 
             <button type="submit" name="fEnviar" value="insertar">Registrar</button>
           </form>
@@ -117,4 +130,5 @@
   <script src="/publics/js/script.js"></script>
 
 </body>
+
 </html>

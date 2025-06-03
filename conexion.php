@@ -3,7 +3,7 @@ class Conexion {
     private $host = "localhost";
     private $user = "root";
     private $pass = "";
-    private $db = "kidschool";
+    private $db = "kidschool2";
     private $conn;
 
     public function conectar() {

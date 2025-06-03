@@ -49,5 +49,10 @@ class Usuario {
             "SELECT * FROM USUARIOS ORDER BY id_usuario");
         return $listado;
     }
+    function listarPorCorreo($correo) {
+        $consulta = mysqli_query($this->_conexion,
+            "SELECT * FROM USUARIOS WHERE correo = '$correo'");
+        return $consulta;
+    }
 }
 ?>

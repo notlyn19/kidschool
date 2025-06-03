@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'conexion.php';
+include_once '../conexion.php';
 $objeto_conexion = new Conexion();
 $conn = $objeto_conexion->conectar();
 
@@ -12,65 +12,53 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    $correo = trim($_POST["correo"]);
-    $contraseña = trim($_POST["contraseña"]);
+    $correoInput = trim($_POST["correo"]);
+    $contraseñaInput = trim($_POST["contraseña"]);
 
-    // Preparar consulta para evitar inyección SQL
-    $sql = "SELECT * FROM usuarios WHERE correo = ?";
-    $stmt = $conn->prepare($sql);
+    include_once '../model/usuarios.php';
+    $usuarioObj = new Usuario($conn, null, null, null, null, null, null, null, null, null);
+    $resultado = $usuarioObj->listarPorCorreo($correoInput);
 
-    if (!$stmt) {
-        // Error en preparación de consulta
-        $_SESSION['mensaje_error'] = "⚠️ Error del servidor. Intente más tarde.";
-        header("Location: index.php");
-        exit();
-    }
 
-    $stmt->bind_param("s", $correo);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+    if (mysqli_num_rows($resultado) > 0) {
+    $usuario = mysqli_fetch_assoc($resultado);
 
-    if ($resultado->num_rows === 1) {
-        $usuario = $resultado->fetch_assoc();
-
-        // Verificar contraseña con password_verify()
-        if (password_verify($contraseña, $usuario["contraseña"])) {
-            // Login exitoso: guardar datos de usuario en sesión
-            $_SESSION["usuario_id"] = $usuario["id"];
+        // Verificar contraseña
+        if (password_verify($contraseñaInput, $usuario["contraseña"])) {
+            // Guardar datos de sesión
+            $_SESSION["usuario_id"] = $usuario["id_usuario"];
             $_SESSION["nombre_usuario"] = $usuario["nombre_usuario"];
             $_SESSION["correo"] = $usuario["correo"];
-            $_SESSION["id_tipo_usuario"] = $usuario["id_tipo_usuario"];
+            $_SESSION["rol"] = $usuario["rol"];
 
-            // Redirigir según tipo de usuario
-            if ($usuario["id_tipo_usuario"] == 1) {
-                $stmt->close();
+            // Redirigir según el rol
+            if ($usuario["rol"] == 1) {
+                // Rol 1: Administrador / Docente
                 $conn->close();
-                header("Location: panel_admin.php");  // Docente
+                header("Location: panel_admin.php");
                 exit();
-            } else if ($usuario["id_tipo_usuario"] == 2) {
-                $stmt->close();
+            } elseif ($usuario["rol"] == 2) {
+                // Rol 2: Estudiante
                 $conn->close();
-                header("Location: panel_estudiante.php");  // Estudiante
+                header("Location: panel_estudiante.php");
                 exit();
             } else {
-                $stmt->close();
+                // Rol desconocido
                 $conn->close();
                 $_SESSION['mensaje_error'] = "⚠️ Tipo de usuario no válido.";
                 header("Location: index.php");
                 exit();
             }
         } else {
-            $stmt->close();
-            $conn->close();
             // Contraseña incorrecta
+            $conn->close();
             $_SESSION['mensaje_error'] = "⚠️ Contraseña incorrecta. Inténtelo de nuevo.";
             header("Location: index.php");
             exit();
         }
     } else {
-        $stmt->close();
-        $conn->close();
         // Usuario no encontrado
+        $conn->close();
         $_SESSION['mensaje_error'] = "⚠️ Usuario no encontrado.";
         header("Location: index.php");
         exit();
